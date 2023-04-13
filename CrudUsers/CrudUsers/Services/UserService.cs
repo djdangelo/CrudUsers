@@ -32,7 +32,7 @@ namespace CrudUsers.Services
 
         public async Task<List<User>> GetAllUser()
         {
-            var listUser = await context.Users.ToListAsync();
+            var listUser = await context.Users.Include(x => x.City).ToListAsync();
             return listUser;
         }
 
