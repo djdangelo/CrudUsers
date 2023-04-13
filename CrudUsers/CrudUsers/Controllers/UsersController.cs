@@ -22,5 +22,30 @@ namespace CrudUsers.Controllers
         {
             return Ok(await userService.GetByIdUser(id));
         }
+        [HttpPost("CreateUser")]
+        public async Task<ActionResult<User>> CreateUser([FromBody] User user)
+        {
+            return Ok(await userService.CreateUser(user));
+        }
+        [HttpGet("GetNameUser/{name}")]
+        public async Task<ActionResult<User>> GetNameUser(string name)
+        {
+            return Ok(await userService.GetByNameUser(name));
+        }
+        [HttpDelete("DeleteUser/{id}")]
+        public async Task<ActionResult<string>> DeleteUser(int id)
+        {
+            return Ok(await userService.DeleteUser(id));
+        }
+        [HttpGet("GetAllUser")]
+        public async Task<ActionResult<List<User>>> GetUsers()
+        {
+            return Ok(await userService.GetAllUser());
+        }
+        [HttpPut("UpdateUser")]
+        public async Task<ActionResult<User>> UpdateUser([FromBody] User updateUser)
+        {
+            return Ok(await userService.UpdateUser(updateUser));
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CrudUsers.Context;
 using CrudUsers.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace CrudUsers.Services
 {
@@ -10,19 +11,29 @@ namespace CrudUsers.Services
         {
             this.context = dataContext;
         }
-        public Task<User> CreateUser(User user)
+        public async Task<User> CreateUser(User user)
         {
-            throw new NotImplementedException();
+            context.Users.Add(user);
+            await context.SaveChangesAsync();
+            return user;
         }
 
-        public Task DeleteUser(int id)
+        public async Task<string> DeleteUser(int id)
         {
-            throw new NotImplementedException();
+            var user = await context.Users.FindAsync(id);
+            if (user == null)
+            {
+                throw new Exception("Usuario no existe.");
+            }
+            context.Users.Remove(user);
+            await context.SaveChangesAsync();
+            return "Usuario eliminado correctamente";
         }
 
-        public Task<List<User>> GetAllUser()
+        public async Task<List<User>> GetAllUser()
         {
-            throw new NotImplementedException();
+            var listUser = await context.Users.ToListAsync();
+            return listUser;
         }
 
         public async Task<User> GetByIdUser(int id)
@@ -35,14 +46,30 @@ namespace CrudUsers.Services
             return user;
         }
 
-        public Task<User> GetByNameUser(string name)
+        public async Task<User> GetByNameUser(string name)
         {
-            throw new NotImplementedException();
+            var user = await context.Users.FindAsync(name);
+            if (user == null)
+            {
+                throw new Exception("Usuario no existe.");
+            }
+            return user;
         }
 
-        public Task<User> UpdateUser(User user)
+        public async Task<User> UpdateUser(User user)
         {
-            throw new NotImplementedException();
+            var updateUser = await context.Users.FindAsync(user.Id);
+            if (updateUser == null)
+            {
+                throw new Exception("Usuario no existe.");
+            }
+            updateUser.Name = user.Name;
+            updateUser.Email = user.Email;
+            updateUser.Address = user.Address;
+            updateUser.CityId  = user.CityId;
+            await context.SaveChangesAsync();
+            return updateUser;
         }
+
     }
 }

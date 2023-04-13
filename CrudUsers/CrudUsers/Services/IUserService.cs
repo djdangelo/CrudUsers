@@ -1,4 +1,5 @@
 ﻿using CrudUsers.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CrudUsers.Services
 {
@@ -8,7 +9,7 @@ namespace CrudUsers.Services
         Task<User> GetByNameUser(string name);
         Task<User> CreateUser(User user);
         Task<User> UpdateUser(User user);
-        Task DeleteUser(int id);
+        Task<string> DeleteUser(int id);
 
         Task<List<User>> GetAllUser();
 
