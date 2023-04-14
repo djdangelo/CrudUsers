@@ -1,5 +1,4 @@
 ﻿using CrudUsers.Entities;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CrudUsers.Services
 {
